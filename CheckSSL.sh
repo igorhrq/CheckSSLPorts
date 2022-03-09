@@ -31,7 +31,7 @@ do
   shift
   now_epoch=$( date +%s )
   
-  echo -e "################# ANALYZING APACHE PORTS #################" | tee -a $LogZ
+  echo -e "################# ANALYZING APACHE PORTS 443 #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
   do
     echo -n "$ip:"
@@ -42,7 +42,7 @@ do
     echo "    $expiry_days days"
   done | tee -a $LogZ
   
-  echo -e "################# ANALYZING dovecot PORTS #################" | tee -a $LogZ
+  echo -e "################# ANALYZING dovecot 995 PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
@@ -53,7 +53,7 @@ do
       echo "    $expiry_days days"
     done | tee -a $LogZ
     
-  echo -e "################# ANALYZING cpanel PORTS #################" | tee -a $LogZ
+  echo -e "################# ANALYZING cpanel 2087 PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
@@ -64,7 +64,7 @@ do
       echo "    $expiry_days days"
     done | tee -a $LogZ
     
-  echo -e "################# ANALYZING SMTP PORTS #################" | tee -a $LogZ
+  echo -e "################# ANALYZING SMTP 465 PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
