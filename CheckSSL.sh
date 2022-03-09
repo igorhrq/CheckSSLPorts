@@ -16,7 +16,6 @@ hostname5.domain.com
 
 # DONT CHANGE ANYTHING FROM HERE
 LogZ="/var/log/checkSSL.log"
-> $Logz
 
 for domains in $DomainList 
 do 
@@ -30,7 +29,7 @@ do
   shift
   now_epoch=$( date +%s )
   
-  echo -e "################# ANALYZING APACHE PORTS #################" | tee -a /var/log/checkSSL.log
+  echo -e "################# ANALYZING APACHE PORTS #################" | tee $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
   do
     echo -n "$ip:"
@@ -39,9 +38,9 @@ do
     expiry_epoch=$( date -d "$expiry_date" +%s )
     expiry_days="$(( ($expiry_epoch - $now_epoch) / (3600 * 24) ))"
     echo "    $expiry_days days"
-  done | tee -a /var/log/checkSSL.log
+  done | tee -a $LogZ
   
-  echo -e "################# ANALYZING dovecot PORTS #################" | tee -a /var/log/checkSSL.log
+  echo -e "################# ANALYZING dovecot PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
@@ -50,9 +49,9 @@ do
       expiry_epoch=$( date -d "$expiry_date" +%s )
       expiry_days="$(( ($expiry_epoch - $now_epoch) / (3600 * 24) ))"
       echo "    $expiry_days days"
-    done | tee -a /var/log/checkSSL.log
+    done | tee -a $LogZ
     
-  echo -e "################# ANALYZING cpanel PORTS #################" | tee -a /var/log/checkSSL.log
+  echo -e "################# ANALYZING cpanel PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
@@ -61,9 +60,9 @@ do
       expiry_epoch=$( date -d "$expiry_date" +%s )
       expiry_days="$(( ($expiry_epoch - $now_epoch) / (3600 * 24) ))"
       echo "    $expiry_days days"
-    done | tee -a /var/log/checkSSL.log
+    done | tee -a $LogZ
     
-  echo -e "################# ANALYZING SMTP PORTS #################" | tee -a /var/log/checkSSL.log
+  echo -e "################# ANALYZING SMTP PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
     do
       echo -n "$ip:"
@@ -72,7 +71,7 @@ do
       expiry_epoch=$( date -d "$expiry_date" +%s )
       expiry_days="$(( ($expiry_epoch - $now_epoch) / (3600 * 24) ))"
       echo "    $expiry_days days"
-    done | tee -a /var/log/checkSSL.log
-  echo -e "------------------------------------------------------------" | tee -a /var/log/checkSSL.log
+    done | tee -a $LogZ
+  echo -e "------------------------------------------------------------" | tee -a $LogZ
   echo -e "Check the logs $LogZ"
 done
