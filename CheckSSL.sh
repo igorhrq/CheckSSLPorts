@@ -73,5 +73,5 @@ do
       echo "    $expiry_days days"
     done | tee -a $LogZ
   echo -e "------------------------------------------------------------" | tee -a $LogZ
-  echo -e "Check the logs $LogZ"
 done
+echo -e "Check the logs $LogZ"
