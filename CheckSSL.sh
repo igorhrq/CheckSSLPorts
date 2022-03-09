@@ -16,10 +16,11 @@ hostname5.domain.com
 
 # DONT CHANGE ANYTHING FROM HERE
 LogZ="/var/log/checkSSL.log"
+echo -e "Starting..." | tee $LogZ
 
 for domains in $DomainList 
 do 
-  echo -e "$domains" | tee -a /var/log/checkSSL.log
+  echo -e "$domains" | tee -a $LogZ
     if [ -z "$domains" ]
     then
       echo "Domain is NULL or invalid"
@@ -29,7 +30,7 @@ do
   shift
   now_epoch=$( date +%s )
   
-  echo -e "################# ANALYZING APACHE PORTS #################" | tee $LogZ
+  echo -e "################# ANALYZING APACHE PORTS #################" | tee -a $LogZ
   dig +noall +answer $name | while read _ _ _ _ ip;
   do
     echo -n "$ip:"
